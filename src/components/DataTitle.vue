@@ -10,13 +10,18 @@
 <script>
 import moment from 'moment';
 
+import { computed } from 'vue';
+
 export default {
 	name: 'DataTitle',
 	props: ['text', 'dataDate'],
-	computed: {
-		timestamp(){
-			return moment(this.dataDate).format('MMMM Do YYYY, h:mm:ss');
-		}
+	setup(props){
+		const timestamp = computed(() => moment(props.dataDate)
+			.format('MMMM Do YYYY, h:mm:ss'));
+
+		return {
+			timestamp
+		};
 	}
 }
 </script>

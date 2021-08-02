@@ -28,6 +28,8 @@ import DataTitle from '@/components/DataTitle';
 import DataBoxes from '@/components/DataBoxes';
 import CountrySelect from '@/components/CountrySelect';
 
+import { ref } from 'vue';
+
 export default {
   name: 'Home',
   components: {
@@ -35,42 +37,54 @@ export default {
     DataBoxes,
     CountrySelect
   },
-  data(){
-    return {
-      loading: true,
-      title: 'Global',
-      dataDate: '',
-      stats: {},
-      countries: []
-    }
-  },
-  methods: {
-    async fetchCovidData(){
+  setup(){
+    const loading = ref(true);
+    const title = ref('Global');
+    const dataDate = ref('');
+    const stats = ref({});
+    const countries = ref([]);
+
+    const fetchCovidData = async () => {
       const res = await fetch('https://api.covid19api.com/summary');
       const data = await res.json();
       return data;
-    },
-    getCountryData(country){
-      this.stats = country;
-      this.title = country.Country;
-    },
-    async clearCountryData(){
-      this.loading = true;
-      const data = await this.fetchCovidData();
-
-      this.title = 'Global';
-      this.stats = data.Global;
-
-      this.loading = false;
     }
-  },
-  async created(){
-    const data = await this.fetchCovidData();
 
-    this.dataDate = data.Date;
-    this.stats = data.Global;
-    this.countries = data.Countries;
-    this.loading = false;
+    const getCountryData = country => {
+      stats.value = country;
+      title.value = country.Country;
+    }
+
+    const clearCountryData = async () => {
+      loading.value = true;
+      const data = await fetchCovidData();
+
+      title.value = 'Global';
+      stats.value = data.Global;
+
+      loading.value = false;
+    }
+
+    const start = async () => {
+      const data = await fetchCovidData();
+
+      dataDate.value = data.Date;
+      stats.value = data.Global;
+      countries.value = data.Countries;
+      loading.value = false;
+    };
+
+    start();
+
+    return {
+      loading,
+      title,
+      dataDate,
+      stats,
+      countries,
+      getCountryData,
+      clearCountryData
+    };
   }
 }
 </script>

@@ -4,7 +4,7 @@
 
 ## About the project
 
-That project was develop based on a [Traversy Media](https://www.youtube.com/user/TechGuyWeb)'s video (you can see it [here](https://www.youtube.com/watch?v=m-MAIpnH9ag)).
+That project was develop based on a [Traversy Media](https://www.youtube.com/user/TechGuyWeb)'s video (you can see it [here](https://www.youtube.com/watch?v=m-MAIpnH9ag)), but using the Vue [Composition API](https://v3.vuejs.org/guide/composition-api-introduction.html) instead of the classic [Options API](https://v3.vuejs.org/api/options-api.html).
 It's a simples covid-19 information tracker built with [Vue 3](https://v3.vuejs.org/) and [Tailwind CSS](https://tailwindcss.com/) with data served by [covid19api.com](https://covid19api.com).
 
 ## Project setup
